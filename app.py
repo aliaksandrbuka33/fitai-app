@@ -1,5 +1,6 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
+api_token = st.secrets[HF_TOKEN]
 
 # Page config
 st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
@@ -12,9 +13,7 @@ st.markdown("Tell me about yourself and your goals, and I'll create a custom wor
 if "api_token" not in st.session_state:
     st.session_state.api_token = ""
 
-api_token = st.text_input("Enter your Hugging Face API Token (it stays private)", type="password", value=st.session_state.api_token)
-if api_token:
-    st.session_state.api_token = api_token
+
 
 # User inputs
 with st.form("user_form"):
@@ -33,9 +32,7 @@ with st.form("user_form"):
     submitted = st.form_submit_button("Generate My Workout Plan!")
 
 if submitted:
-    if not api_token:
-        st.error("Please enter your Hugging Face API token first!")
-    else:
+    
         try:
             # Set up Hugging Face client
             client = InferenceClient(token=api_token)
