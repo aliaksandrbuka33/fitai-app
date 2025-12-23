@@ -1,6 +1,6 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
-api_token = st.secrets[HF_TOKEN]
+api_token = st.secrets["HF_TOKEN"]
 
 # Page config
 st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
@@ -9,9 +9,7 @@ st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon
 st.title("💪 FitAI - Personalized Workout Planner")
 st.markdown("Tell me about yourself and your goals, and I'll create a custom workout plan!")
 
-# API Token input (we'll hide it in secrets later)
-if "api_token" not in st.session_state:
-    st.session_state.api_token = ""
+
 
 
 
