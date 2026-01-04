@@ -51,7 +51,7 @@ if page == "Home - Generate Plan":
         with st.spinner("AI generating your plan..."):
             response = client.chat_completion(
                 messages=[{"role": "user", "content": prompt}],
-                model="google/gemma-2-2b-it,
+                model="THIS_MODEL_NAME_HERE",
                 max_tokens=1500,
                 temperature=0.7,
             )
