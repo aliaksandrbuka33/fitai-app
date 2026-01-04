@@ -49,14 +49,13 @@ if page == "Home - Generate Plan":
         """
 
         with st.spinner("AI generating your plan..."):
-            response = client.chat_completion(
-                messages=[{"role": "user", "content": prompt}],
-              model="Qwen/Qwen2.5-3B-Instruct",
-                max_tokens=1500,
-                temperature=0.7,
-            )
-            plan = response.choices[0].message.content
-
+    response = client.text_generation(
+        prompt,
+        model="mistralai/Mistral-7B-Instruct-v0.3",
+        max_new_tokens=1500,
+        temperature=0.7,
+    )
+    plan = response
         st.success("Here's your personalized plan!")
         st.markdown(plan)
 
