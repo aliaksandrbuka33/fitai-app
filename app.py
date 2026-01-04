@@ -51,7 +51,7 @@ if page == "Home - Generate Plan":
         with st.spinner("AI generating your plan..."):
             response = client.chat_completion(
                 messages=[{"role": "user", "content": prompt}],
-                model="mistralai/Mistral-7B-Instruct-v0.3",
+                model="meta-llama/Llama-3.2-3B-Instruct",
                 max_tokens=1500,
                 temperature=0.7,
             )
