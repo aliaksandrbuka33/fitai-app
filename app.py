@@ -48,14 +48,14 @@ if page == "Home - Generate Plan":
         Respond ONLY with the plan.
         """
 
-        with st.spinner("AI generating your plan..."):
-    response = client.text_generation(
-        prompt,
-        model="mistralai/Mistral-7B-Instruct-v0.3",
-        max_new_tokens=1500,
-        temperature=0.7,
-    )
-    plan = response
+    with st.spinner("AI generating your plan..."):
+        response = client.text_generation(
+              prompt,
+              model="mistralai/Mistral-7B-Instruct-v0.3",
+              max_new_tokens=1500,
+              temperature=0.7,
+          )
+          plan = response
         st.success("Here's your personalized plan!")
         st.markdown(plan)
 
