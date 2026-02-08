@@ -1,72 +1,75 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
 
-# Page setup with dark mode
-st.set_page_config(
-    page_title="FitAI - AI Workout Coach",
-    page_icon="💪",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Dark theme CSS
-st.markdown("""
-    <style>
-    .stApp {background-color: #0e1117; color: white;}
-    section[data-testid="stSidebar"] {background-color: #1a1a1a;}
-    .stButton>button {background-color: #1f8a6e; color: white; border: none;}
-    .stButton>button:hover {background-color: #2aa07f;}
-    </style>
-""", unsafe_allow_html=True)
-
-# Load HF token from secrets (already set up)
 api_token = st.secrets["HF_TOKEN"]
-client = InferenceClient(token=api_token)
 
-# Sidebar navigation
-st.sidebar.title("FitAI")
-page = st.sidebar.radio("Go to", ["Home - Generate Plan", "Workout Log", "Progress Stats"])
+# Page config
+st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
 
-# Home Page: Quick Plan Generator
-if page == "Home - Generate Plan":
-    st.title("💪 FitAI - Your AI Coach")
-    st.markdown("Answer 4 quick questions for a custom weekly plan.")
+# Title
+st.title("💪 FitAI - Personalized Workout Planner")
+st.markdown("Tell me about yourself and your goals, and I'll create a custom workout plan!")
 
-    with st.form("quick_plan"):
-        level = st.selectbox("Your fitness level", ["Beginner", "Intermediate", "Advanced"])
-        goals = st.multiselect("Main goals", ["Lose weight", "Build muscle", "Improve strength", "Endurance", "General health"])
-        days = st.slider("Training days per week", 1, 7, 4)
-        equipment = st.multiselect("Available equipment", ["Bodyweight only", "Dumbbells", "Barbell", "Gym machines", "Resistance bands"])
-        submitted = st.form_submit_button("Generate My Plan")
+# User inputs (form)
+with st.form("user_form"):
+    name = st.text_input("Your name (optional)")
+    age = st.slider("Age", 15, 80, 30)
+    gender = st.selectbox("Gender", ["Male", "Female", "Other", "Prefer not to say"])
+    weight = st.number_input("Weight (kg)", min_value=30.0, max_value=200.0, value=70.0)
+    height = st.number_input("Height (cm)", min_value=100.0, max_value=250.0, value=170.0)
+    fitness_level = st.selectbox("Current fitness level", ["Beginner", "Intermediate", "Advanced"])
+    goals = st.multiselect("Fitness goals", ["Lose weight", "Build muscle", "Improve endurance", "General health", "Tone up"])
+    equipment = st.multiselect("Available equipment", ["None (bodyweight)", "Dumbbells", "Barbell", "Gym machines", "Resistance bands", "Kettlebell"])
+    days_per_week = st.slider("Days per week you can train", 1, 7, 4)
+    minutes_per_session = st.slider("Minutes per workout session", 15, 90, 45)
+    preferences = st.text_area("Any preferences, injuries, or special requests? (e.g., no jumping, focus on arms)")
+    
+    submitted = st.form_submit_button("Generate My Workout Plan!")
 
-    if submitted:
+if submitted:
+    try:
+        # Set up Hugging Face client
+        client = InferenceClient(token=api_token)
+        
+        # Create prompt
         prompt = f"""
-        Create a simple, safe weekly workout plan for a {level} person training {days} days per week.
-        Goals: {', '.join(goals)}
-        Equipment: {', '.join(equipment) or 'bodyweight only'}
-        Keep it motivating, clear format: Day 1: ..., Warm-up, Exercises (sets/reps), Cool-down.
-        Respond ONLY with the plan.
+        Create a personalized weekly workout plan for someone named {name or 'user'}.
+        Details:
+        - Age: {age}
+        - Gender: {gender}
+        - Weight: {weight} kg
+        - Height: {height} cm
+        - Fitness level: {fitness_level}
+        - Goals: {', '.join(goals)}
+        - Available equipment: {', '.join(equipment) or 'bodyweight only'}
+        - Training days per week: {days_per_week}
+        - Session length: about {minutes_per_session} minutes
+        - Special notes: {preferences or 'none'}
+        
+        Format the plan nicely with:
+        - Warm-up (5-10 min)
+        - Main exercises (sets, reps, rest)
+        - Cool-down
+        - One rest or active recovery day suggestion
+        Make it motivating and safe for their level.
+        Respond ONLY with the workout plan, no extra text.
         """
-
-    with st.spinner("AI generating your plan..."):
-        response = client.text_generation(
-              prompt,
-              model="mistralai/Mistral-7B-Instruct-v0.3",
-              max_new_tokens=1500,
-              temperature=0.7,
-          )
-          plan = response
-        st.success("Here's your personalized plan!")
+        
+        with st.spinner("Generating your custom plan..."):
+            response = client.chat_completion(  # <--- use chat_completion now
+                messages=[{"role": "user", "content": prompt}],
+                model="mistralai/Mistral-7B-Instruct-v0.3",
+                max_tokens=1500,
+                temperature=0.7,
+            )
+            plan = response.choices[0].message.content
+        
+        st.success("Here's your personalized workout plan!")
         st.markdown(plan)
-
-        # Save plan for later use in Workout page
-        st.session_state.current_plan = plan
-
-# Placeholder pages (we'll fill them next)
-elif page == "Workout Log":
-    st.title("🏋️‍♂️ Workout Log")
-    st.info("This page is coming in the next step...")
-
-elif page == "Progress Stats":
-    st.title("📈 Progress Stats")
-    st.info("Charts coming soon...")
+        
+        # Regenerate button (optional)
+        if st.button("Generate a different version"):
+            st.rerun()
+            
+    except Exception as e:
+        st.error(f"Something went wrong: {str(e)}. Try again or check your token.")
