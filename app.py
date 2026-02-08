@@ -55,7 +55,7 @@ if submitted:
         Respond ONLY with the workout plan, no extra text.
         """
         
-                with st.spinner("Generating your custom plan..."):
+        with st.spinner("Generating your custom plan..."):
             # Wrap prompt as chat message (required by Featherless / current routing)
             messages = [{"role": "user", "content": prompt}]
             
