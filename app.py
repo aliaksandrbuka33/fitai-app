@@ -55,15 +55,18 @@ if submitted:
         Respond ONLY with the workout plan, no extra text.
         """
         
-        with st.spinner("Generating your custom plan..."):
-            response = client.text_generation(
-                prompt,
+                with st.spinner("Generating your custom plan..."):
+            # Wrap prompt as chat message (required by Featherless / current routing)
+            messages = [{"role": "user", "content": prompt}]
+            
+            response = client.chat_completion(
+                messages=messages,
                 model="mistralai/Mistral-7B-Instruct-v0.2",
-                max_new_tokens=1500,
+                max_tokens=1500,
                 temperature=0.7,
-                do_sample=True,
             )
-            plan = response
+            
+            plan = response.choices[0].message.content
         
         st.success("Here's your personalized workout plan!")
         st.markdown(plan)
