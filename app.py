@@ -30,7 +30,7 @@ if submitted:
     try:
         # Set up Hugging Face client
         client = InferenceClient(token=api_token)
-
+        
         # Create prompt
         prompt = f"""
         Create a personalized weekly workout plan for someone named {name or 'user'}.
@@ -45,7 +45,7 @@ if submitted:
         - Training days per week: {days_per_week}
         - Session length: about {minutes_per_session} minutes
         - Special notes: {preferences or 'none'}
-
+        
         Format the plan nicely with:
         - Warm-up (5-10 min)
         - Main exercises (sets, reps, rest)
@@ -54,22 +54,22 @@ if submitted:
         Make it motivating and safe for their level.
         Respond ONLY with the workout plan, no extra text.
         """
-
-with st.spinner("Generating your custom plan..."):
-            messages = [{"role": "user", "content": prompt}]
-            
-            response = client.chat_completion(
-                messages=messages,
-                model="mistralai/Mistral-7B-Instruct-v0.2", 
-                max_tokens=1500,
+        
+        with st.spinner("Generating your custom plan..."):
+            response = client.text_generation(
+                prompt,
+                model="mistralai/Mistral-7B-Instruct-v0.2",
+                max_new_tokens=1500,
                 temperature=0.7,
+                do_sample=True,
             )
-            plan = response.choices[0].message.content
+            plan = response
+        
         st.success("Here's your personalized workout plan!")
         st.markdown(plan)
-
+        
         if st.button("Generate a different version"):
             st.rerun()
-
+    
     except Exception as e:
         st.error(f"Something went wrong: {str(e)}. Double-check your token or try again.")
