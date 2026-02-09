@@ -61,7 +61,7 @@ if submitted:
             
             response = client.chat_completion(
                 messages=messages,
-                model="mistralai/Mistral-7B-Instruct-v0.2",
+                model="NousResearch/Hermes-2-Pro-Mistral-7B",
                 max_tokens=1500,
                 temperature=0.7,
             )
