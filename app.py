@@ -1,6 +1,7 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
 
+# Load token from secrets (no visible input anymore)
 api_token = st.secrets["HF_TOKEN"]
 
 # Page config
@@ -10,7 +11,7 @@ st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon
 st.title("💪 FitAI - Personalized Workout Planner")
 st.markdown("Tell me about yourself and your goals, and I'll create a custom workout plan!")
 
-# User inputs (form)
+# User inputs
 with st.form("user_form"):
     name = st.text_input("Your name (optional)")
     age = st.slider("Age", 15, 80, 30)
@@ -56,12 +57,11 @@ if submitted:
         """
         
         with st.spinner("Generating your custom plan..."):
-            # Wrap prompt as chat message (required by Featherless / current routing)
             messages = [{"role": "user", "content": prompt}]
             
             response = client.chat_completion(
                 messages=messages,
-                model="google/gemma-2-2b-it",
+                model="meta-llama/Llama-3.1-8B-Instruct",  # Free & supported model in 2026
                 max_tokens=1500,
                 temperature=0.7,
             )
@@ -71,8 +71,9 @@ if submitted:
         st.success("Here's your personalized workout plan!")
         st.markdown(plan)
         
+        # Optional regenerate button
         if st.button("Generate a different version"):
             st.rerun()
-    
+            
     except Exception as e:
-        st.error(f"Something went wrong: {str(e)}. Double-check your token or try again.")
+        st.error(f"Something went wrong: {str(e)}. Please try again or check your token.")
