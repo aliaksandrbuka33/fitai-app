@@ -61,7 +61,7 @@ if submitted:
             
             response = client.chat_completion(
                 messages=messages,
-                model="NousResearch/Hermes-2-Pro-Mistral-7B",
+                model="openchat/openchat-3.5-1210",
                 max_tokens=1500,
                 temperature=0.7,
             )
