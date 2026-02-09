@@ -61,7 +61,7 @@ if submitted:
             
             response = client.chat_completion(
                 messages=messages,
-                model="Qwen/Qwen2-7B-Instruct",
+                model=model="google/gemma-2-2b-it",
                 max_tokens=1500,
                 temperature=0.7,
             )
