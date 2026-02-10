@@ -4,38 +4,69 @@ from huggingface_hub import InferenceClient
 # Load token from secrets (no visible input)
 api_token = st.secrets["HF_TOKEN"]
 # Custom styling for modern fitness look
+# Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-        .stApp { 
-            background-color: #0e1117; 
-            color: #e0e0e0; 
+        /* Dark background for whole app */
+        [data-testid="stAppViewContainer"] {
+            background-color: #0e1117 !important;
+            color: #e0e0e0 !important;
         }
-        .stButton > button { 
-            background-color: #00cc66; 
-            color: black; 
-            border-radius: 8px; 
-            padding: 12px 24px; 
-            font-weight: bold; 
-            border: none; 
+        
+        /* Sidebar dark */
+        [data-testid="stSidebar"] {
+            background-color: #161b22 !important;
         }
-        .stButton > button:hover { 
-            background-color: #00e673; 
+        
+        /* Buttons - green, rounded */
+        .stButton > button {
+            background-color: #00cc66 !important;
+            color: black !important;
+            border-radius: 8px !important;
+            padding: 12px 24px !important;
+            font-weight: bold !important;
+            border: none !important;
         }
-        .stTextInput > div > div > input, 
-        .stNumberInput > div > div > input, 
-        .stTextArea > div > div > textarea { 
-            background-color: #1e1e1e; 
-            color: white; 
-            border: 1px solid #444; 
-            border-radius: 6px; 
+        .stButton > button:hover {
+            background-color: #00e673 !important;
         }
-        .stSlider > div { background-color: #00cc66 !important; }
-        h1, h2, h3 { color: #00cc66; }
-        .stMarkdown, p, span, div { color: #e0e0e0; }
-        section[data-testid="stSidebar"] { background-color: #161b22; }
-        .stAlert { background-color: #1e3a2d; border-color: #00cc66; }
-        .block-container { padding-top: 2rem; }
+        
+        /* Inputs, sliders, text areas */
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input,
+        .stTextArea > div > div > textarea,
+        .stSelectbox > div > div > select {
+            background-color: #1e1e1e !important;
+            color: white !important;
+            border: 1px solid #444 !important;
+            border-radius: 6px !important;
+        }
+        .stSlider > div {
+            background-color: #00cc66 !important;
+        }
+        
+        /* Headers and text */
+        h1, h2, h3, h4, h5, h6 {
+            color: #00cc66 !important;
+        }
+        p, span, div, label {
+            color: #e0e0e0 !important;
+        }
+        
+        /* Alerts/info boxes */
+        .stAlert {
+            background-color: #1e3a2d !important;
+            border-color: #00cc66 !important;
+            color: #e0e0e0 !important;
+        }
+        
+        /* Block container padding */
+        .block-container {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
     </style>
+""", unsafe_allow_html=True)
 """, unsafe_allow_html=True)
 # Page config
 st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
