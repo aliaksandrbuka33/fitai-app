@@ -3,22 +3,24 @@ from huggingface_hub import InferenceClient
 
 # Load token from secrets (no visible input anymore)
 api_token = st.secrets["HF_TOKEN"]
-import streamlit as st
-from huggingface_hub import InferenceClient
 
-# Load token from secrets (no visible input anymore)
-api_token = st.secrets["HF_TOKEN"]
-
-#  ↓↓↓ PASTE THE ENTIRE DARK STYLE BLOCK HERE ↓↓↓
+# Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
+        /* Force dark on main container + all inner blocks */
         [data-testid="stAppViewContainer"] {
             background-color: #0e1117 !important;
             color: #e0e0e0 !important;
         }
+        .main .block-container {
+            background-color: #0e1117 !important;
+            color: #e0e0e0 !important;
+        }
+        /* Sidebar */
         [data-testid="stSidebar"] {
             background-color: #161b22 !important;
         }
+        /* Buttons - green, rounded, bigger */
         .stButton > button {
             background-color: #00cc66 !important;
             color: black !important;
@@ -26,10 +28,13 @@ st.markdown("""
             padding: 12px 24px !important;
             font-weight: bold !important;
             border: none !important;
+            width: 100% !important;
+            font-size: 16px !important;
         }
         .stButton > button:hover {
             background-color: #00e673 !important;
         }
+        /* Inputs, selects, textareas */
         .stTextInput > div > div > input,
         .stNumberInput > div > div > input,
         .stTextArea > div > div > textarea,
@@ -39,29 +44,38 @@ st.markdown("""
             border: 1px solid #444 !important;
             border-radius: 6px !important;
         }
+        /* Sliders */
         .stSlider > div {
             background-color: #00cc66 !important;
         }
+        /* Headers and text */
         h1, h2, h3, h4, h5, h6, p, span, div, label {
             color: #e0e0e0 !important;
         }
         h1, h2, h3 {
             color: #00cc66 !important;
         }
+        /* Alerts/info boxes */
         .stAlert {
             background-color: #1e3a2d !important;
             border-color: #00cc66 !important;
+            color: #e0e0e0 !important;
+        }
+        /* Better padding */
+        .block-container {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
         }
     </style>
 """, unsafe_allow_html=True)
-# ↑↑↑ PASTE ENDS HERE ↑↑↑
 
-# Page config
-st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
-
-# ... rest of your code (title, form, if submitted, etc.)
-# Page config
-st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
+# Page config (wide layout for better mobile)
+st.set_page_config(
+    page_title="FitAI - Your Personal Workout Planner",
+    page_icon="💪",
+    layout="wide",
+    initial_sidebar_state="collapsed"  # hides sidebar on phone by default
+)
 
 # Title
 st.title("💪 FitAI - Personalized Workout Planner")
@@ -88,7 +102,7 @@ if submitted:
         # Set up Hugging Face client
         client = InferenceClient(token=api_token)
         
-        # Create prompt (correct indentation inside f-string)
+        # Create prompt (correct indentation)
         prompt = f"""
 Create a personalized weekly workout plan for someone named {name or 'user'}.
 Details:
@@ -117,7 +131,7 @@ Respond ONLY with the workout plan, no extra text.
             
             response = client.chat_completion(
                 messages=messages,
-                model="meta-llama/Llama-3.1-8B-Instruct",
+                model="meta-llama/Llama-3.1-8B-Instruct",  # Free & supported model
                 max_tokens=1500,
                 temperature=0.7,
             )
