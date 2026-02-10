@@ -3,7 +3,63 @@ from huggingface_hub import InferenceClient
 
 # Load token from secrets (no visible input anymore)
 api_token = st.secrets["HF_TOKEN"]
+import streamlit as st
+from huggingface_hub import InferenceClient
 
+# Load token from secrets (no visible input anymore)
+api_token = st.secrets["HF_TOKEN"]
+
+#  ↓↓↓ PASTE THE ENTIRE DARK STYLE BLOCK HERE ↓↓↓
+st.markdown("""
+    <style>
+        [data-testid="stAppViewContainer"] {
+            background-color: #0e1117 !important;
+            color: #e0e0e0 !important;
+        }
+        [data-testid="stSidebar"] {
+            background-color: #161b22 !important;
+        }
+        .stButton > button {
+            background-color: #00cc66 !important;
+            color: black !important;
+            border-radius: 8px !important;
+            padding: 12px 24px !important;
+            font-weight: bold !important;
+            border: none !important;
+        }
+        .stButton > button:hover {
+            background-color: #00e673 !important;
+        }
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input,
+        .stTextArea > div > div > textarea,
+        .stSelectbox > div > div > select {
+            background-color: #1e1e1e !important;
+            color: white !important;
+            border: 1px solid #444 !important;
+            border-radius: 6px !important;
+        }
+        .stSlider > div {
+            background-color: #00cc66 !important;
+        }
+        h1, h2, h3, h4, h5, h6, p, span, div, label {
+            color: #e0e0e0 !important;
+        }
+        h1, h2, h3 {
+            color: #00cc66 !important;
+        }
+        .stAlert {
+            background-color: #1e3a2d !important;
+            border-color: #00cc66 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+# ↑↑↑ PASTE ENDS HERE ↑↑↑
+
+# Page config
+st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
+
+# ... rest of your code (title, form, if submitted, etc.)
 # Page config
 st.set_page_config(page_title="FitAI - Your Personal Workout Planner", page_icon="💪")
 
