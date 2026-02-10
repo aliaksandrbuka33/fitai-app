@@ -1,7 +1,7 @@
 import streamlit as st
 from huggingface_hub import InferenceClient
 
-# Load token from secrets (no visible input anymore)
+# Load token from secrets (no visible input)
 api_token = st.secrets["HF_TOKEN"]
 
 # Page config
@@ -61,7 +61,7 @@ if submitted:
             
             response = client.chat_completion(
                 messages=messages,
-                model="openchat/openchat-3.5-1210",  
+                model="meta-llama/Llama-3.1-8B-Instruct",  # Switch to this model — free & supported
                 max_tokens=1500,
                 temperature=0.7,
             )
