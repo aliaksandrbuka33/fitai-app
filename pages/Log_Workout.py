@@ -1,4 +1,34 @@
 import streamlit as st
+
+# Force dark mode on this page
+st.markdown("""
+    <style>
+        [data-testid="stAppViewContainer"] {
+            background-color: #0e1117 !important;
+            color: #e0e0e0 !important;
+        }
+        [data-testid="stSidebar"] {
+            background-color: #161b22 !important;
+        }
+        .stButton > button {
+            background-color: #00cc66 !important;
+            color: black !important;
+        }
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input,
+        .stTextArea > div > div > textarea {
+            background-color: #1e1e1e !important;
+            color: white !important;
+        }
+        h1, h2, h3 {
+            color: #00cc66 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Your existing code below...
+st.title("Log Workout")
+# ... rest of your page
 from huggingface_hub import InferenceClient
 from datetime import datetime
 
