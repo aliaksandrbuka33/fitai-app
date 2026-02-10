@@ -61,7 +61,7 @@ if submitted:
             
             response = client.chat_completion(
                 messages=messages,
-                model="meta-llama/Llama-3.1-8B-Instruct",  # Free & supported model in 2026
+                model="openchat/openchat-3.5-1210",  
                 max_tokens=1500,
                 temperature=0.7,
             )
