@@ -7,85 +7,89 @@ api_token = st.secrets["HF_TOKEN"]
 # Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-        /* Root background - Apple's deep dark */
-        [data-testid="stAppViewContainer"] {
-            background-color: #0d1117 !important;
+        /* Force dark background on the entire app (all pages) */
+        [data-testid="stAppViewContainer"],
+        [data-testid="stApp"],
+        .stApp {
+            background-color: #0a0c10 !important;
         }
-        .main .block-container {
-            background-color: #0d1117 !important;
-            max-width: 920px !important;
-            margin: 0 auto !important;
-            padding: 1.5rem 1rem !important;
-        }
-
-        /* Sidebar */
-        [data-testid="stSidebar"] {
-            background-color: #161b22 !important;
+        .main .block-container,
+        section.main > div,
+        .stApp > div:first-child {
+            background-color: #0a0c10 !important;
+            color: #e0e0e0 !important;
         }
 
-        /* Buttons - soft teal with subtle depth */
+        /* Sidebar dark everywhere */
+        [data-testid="stSidebar"],
+        [data-testid="stSidebarUserContent"] {
+            background-color: #11151c !important;
+        }
+
+        /* Buttons - vivid green with depth (visible on dark bg) */
         .stButton > button {
-            background: linear-gradient(180deg, #00d4ff 0%, #00aaff 100%) !important;
+            background: linear-gradient(180deg, #00ff9d 0%, #00cc7a 100%) !important;
             color: #000000 !important;
             font-weight: 600 !important;
             font-size: 17px !important;
             border-radius: 12px !important;
             padding: 16px 28px !important;
             border: none !important;
-            box-shadow: 
-                0 2px 8px rgba(0,212,255,0.25),
-                inset 0 1px 0 rgba(255,255,255,0.18) !important;
+            box-shadow: 0 2px 8px rgba(0,255,157,0.25) !important;
             transition: all 0.18s ease !important;
             width: 100% !important;
             margin: 14px 0 !important;
         }
         .stButton > button:hover {
-            background: linear-gradient(180deg, #33eaff 0%, #00ccff 100%) !important;
-            box-shadow: 
-                0 6px 16px rgba(0,212,255,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.25) !important;
+            background: linear-gradient(180deg, #33ffaa 0%, #00e68a 100%) !important;
+            box-shadow: 0 6px 16px rgba(0,255,157,0.45) !important;
             transform: translateY(-1px) !important;
         }
-        .stButton > button:active {
-            transform: translateY(0) !important;
-            box-shadow: 0 2px 8px rgba(0,212,255,0.25) !important;
-        }
 
-        /* Inputs - matte dark with soft border */
+        /* Force dark inputs on ALL pages - focused or unfocused */
+        div[data-testid="stNumberInput"],
+        div[data-testid="stNumberInput"] > div,
         div[data-testid="stNumberInput"] input,
+        div[data-testid="stTextInput"],
+        div[data-testid="stTextInput"] > div,
         div[data-testid="stTextInput"] input,
+        div[data-testid="stTextArea"],
         div[data-testid="stTextArea"] textarea,
+        div[data-testid="stSelectbox"],
         div[data-testid="stSelectbox"] select {
-            background-color: #161b22 !important;
-            color: #f5f5f7 !important;
+            background-color: #11151c !important;
+            color: #f1f5f9 !important;
             border: 1px solid #2a3241 !important;
             border-radius: 10px !important;
             padding: 14px 16px !important;
             font-size: 16px !important;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.4) !important;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.5) !important;
         }
 
-        /* Focus state */
+        /* Placeholder text */
+        input::placeholder, textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Focus ring */
         input:focus, textarea:focus, select:focus {
-            border-color: #00d4ff !important;
-            box-shadow: 0 0 0 3px rgba(0,212,255,0.18) !important;
+            border-color: #00ff9d !important;
+            box-shadow: 0 0 0 3px rgba(0,255,157,0.18) !important;
         }
 
         /* Headers & text */
         h1, h2, h3 {
-            color: #66e0ff !important;
-            font-weight: 600 !important;
+            color: #66ffcc !important;
         }
         p, span, label, div {
             color: #d0d7e0 !important;
         }
 
-        /* Alerts / success */
+        /* Success/info boxes */
         .stAlert, .stSuccess, .stInfo {
-            background-color: #0b2a3a !important;
-            border-color: #00d4ff40 !important;
-            color: #e0f7ff !important;
-            border-radius: 10px !important;
+            background-color: #0d2b1f !important;
+            border-color: #00ff9d30 !important;
+            color: #e0ffe0 !important;
         }
     </style>
 """, unsafe_allow_html=True)
