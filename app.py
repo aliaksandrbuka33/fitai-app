@@ -7,7 +7,7 @@ api_token = st.secrets["HF_TOKEN"]
 # Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-        /* Root background */
+        /* Force dark background everywhere */
         [data-testid="stAppViewContainer"] {
             background-color: #0a0c10 !important;
         }
@@ -17,44 +17,37 @@ st.markdown("""
             margin: 0 auto !important;
             padding: 1.5rem 1rem !important;
         }
-
-        /* Sidebar */
         [data-testid="stSidebar"] {
             background-color: #11151c !important;
-            border-right: 1px solid #1f2937 !important;
         }
 
-        /* Buttons - Apple-style depth */
+        /* Buttons - vivid green with depth */
         .stButton > button {
             background: linear-gradient(180deg, #00ff9d 0%, #00cc7a 100%) !important;
             color: #000000 !important;
             font-weight: 600 !important;
             font-size: 17px !important;
             border-radius: 12px !important;
-            padding: 14px 24px !important;
+            padding: 16px 28px !important;
             border: none !important;
-            box-shadow: 
-                0 1px 3px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.25) !important;
-            transition: all 0.15s ease !important;
+            box-shadow: 0 2px 8px rgba(0,255,157,0.3) !important;
+            transition: all 0.18s ease !important;
             width: 100% !important;
-            margin: 12px 0 !important;
+            margin: 14px 0 !important;
         }
         .stButton > button:hover {
             background: linear-gradient(180deg, #33ffaa 0%, #00e68a 100%) !important;
-            box-shadow: 
-                0 4px 12px rgba(0,255,157,0.35),
-                inset 0 1px 0 rgba(255,255,255,0.35) !important;
+            box-shadow: 0 6px 16px rgba(0,255,157,0.45) !important;
             transform: translateY(-1px) !important;
         }
-        .stButton > button:active {
-            transform: translateY(0) !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
-        }
 
-        /* Inputs - glass-like dark */
-        .stTextInput > div > div > input,
+        /* ALL input fields (including number inputs, text, textarea, select) - dark */
+        div[data-testid="stNumberInput"] > div > div > input,
+        div[data-testid="stTextInput"] > div > div > input,
+        div[data-testid="stTextArea"] > div > div > textarea,
+        div[data-testid="stSelectbox"] > div > div > select,
         .stNumberInput > div > div > input,
+        .stTextInput > div > div > input,
         .stTextArea > div > div > textarea,
         .stSelectbox > div > div > select {
             background-color: #11151c !important;
@@ -63,23 +56,22 @@ st.markdown("""
             border-radius: 10px !important;
             padding: 14px 16px !important;
             font-size: 16px !important;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6) !important;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.5) !important;
         }
 
-        /* Focus state */
-        .stTextInput > div > div > input:focus,
-        .stNumberInput > div > div > input:focus {
+        /* Input focus state */
+        div[data-testid="stNumberInput"] > div > div > input:focus,
+        div[data-testid="stTextInput"] > div > div > input:focus,
+        div[data-testid="stTextArea"] > div > div > textarea:focus {
             border-color: #00ff9d !important;
-            box-shadow: 0 0 0 3px rgba(0,255,157,0.2) !important;
+            box-shadow: 0 0 0 3px rgba(0,255,157,0.18) !important;
         }
 
-        /* Headers */
-        h1, h2, h3 {
+        /* Headers & text */
+        h1, h2, h3, h4, h5, h6 {
             color: #66ffcc !important;
             font-weight: 600 !important;
         }
-
-        /* Regular text */
         p, span, label, div {
             color: #d0d7e0 !important;
         }
