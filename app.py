@@ -7,66 +7,75 @@ api_token = st.secrets["HF_TOKEN"]
 # Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-        /* Force dark on main container + all inner blocks */
-        [data-testid="stAppViewContainer"] {
-            background-color: #0e1117 !important;
-            color: #e0e0e0 !important;
-        }
-        .main .block-container {
-            background-color: #0e1117 !important;
-            color: #e0e0e0 !important;
-        }
-        /* Sidebar */
-        [data-testid="stSidebar"] {
-            background-color: #161b22 !important;
-        }
-        /* Buttons - green, rounded, bigger */
-        .stButton > button {
-            background-color: #00cc66 !important;
-            color: black !important;
-            border-radius: 8px !important;
-            padding: 12px 24px !important;
-            font-weight: bold !important;
-            border: none !important;
-            width: 100% !important;
-            font-size: 16px !important;
-        }
-        .stButton > button:hover {
-            background-color: #00e673 !important;
-        }
-        /* Inputs, selects, textareas */
-        .stTextInput > div > div > input,
-        .stNumberInput > div > div > input,
-        .stTextArea > div > div > textarea,
-        .stSelectbox > div > div > select {
-            background-color: #1e1e1e !important;
-            color: white !important;
-            border: 1px solid #444 !important;
-            border-radius: 6px !important;
-        }
-        /* Sliders */
-        .stSlider > div {
-            background-color: #00cc66 !important;
-        }
-        /* Headers and text */
-        h1, h2, h3, h4, h5, h6, p, span, div, label {
-            color: #e0e0e0 !important;
-        }
-        h1, h2, h3 {
-            color: #00cc66 !important;
-        }
-        /* Alerts/info boxes */
-        .stAlert {
-            background-color: #1e3a2d !important;
-            border-color: #00cc66 !important;
-            color: #e0e0e0 !important;
-        }
-        /* Better padding */
-        .block-container {
-            padding-top: 2rem !important;
-            padding-bottom: 2rem !important;
-        }
-    </style>
+    /* Dark background + text */
+    [data-testid="stAppViewContainer"] {
+        background-color: #0e1117 !important;
+        color: #e0e0e0 !important;
+    }
+    .main .block-container {
+        background-color: #0e1117 !important;
+        color: #e0e0e0 !important;
+    }
+    [data-testid="stSidebar"] {
+        background-color: #161b22 !important;
+    }
+
+    /* Bigger, full-width buttons (great for mobile) */
+    .stButton > button {
+        background-color: #00cc66 !important;
+        color: black !important;
+        border-radius: 12px !important;
+        padding: 16px 32px !important;
+        font-weight: bold !important;
+        font-size: 18px !important;
+        border: none !important;
+        width: 100% !important;
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    .stButton > button:hover {
+        background-color: #00e673 !important;
+    }
+
+    /* Inputs look good on dark */
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
+    .stTextArea > div > div > textarea,
+    .stSelectbox > div > div > select {
+        background-color: #1e1e1e !important;
+        color: white !important;
+        border: 1px solid #444 !important;
+        border-radius: 8px !important;
+        padding: 12px !important;
+    }
+
+    /* Sliders green */
+    .stSlider > div {
+        background-color: #00cc66 !important;
+    }
+
+    /* Headers green, text light */
+    h1, h2, h3, h4, h5, h6 {
+        color: #00cc66 !important;
+    }
+    p, span, div, label {
+        color: #e0e0e0 !important;
+    }
+
+    /* Alerts/info boxes */
+    .stAlert {
+        background-color: #1e3a2d !important;
+        border-color: #00cc66 !important;
+        color: #e0e0e0 !important;
+    }
+
+    /* Better spacing */
+    .block-container {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 800px !important;  /* Centers content on large screens */
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # Page config (wide layout for better mobile)
