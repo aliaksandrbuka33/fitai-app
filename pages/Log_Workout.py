@@ -1,14 +1,47 @@
 import streamlit as st
 st.markdown("""
     <style>
-        div[data-testid="stNumberInput"] > div > div > input,
-        div[data-testid="stTextInput"] > div > div > input {
+        /* Force dark background on this page */
+        [data-testid="stAppViewContainer"] {
+            background-color: #0a0c10 !important;
+        }
+
+        /* Target ALL input wrappers and elements - focused or unfocused */
+        div[data-testid="stNumberInput"],
+        div[data-testid="stNumberInput"] > div,
+        div[data-testid="stNumberInput"] > div > div,
+        div[data-testid="stNumberInput"] input,
+        div[data-testid="stTextInput"],
+        div[data-testid="stTextInput"] > div,
+        div[data-testid="stTextInput"] > div > div,
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stTextArea"],
+        div[data-testid="stTextArea"] > div,
+        div[data-testid="stTextArea"] > div > div,
+        div[data-testid="stTextArea"] textarea,
+        div[data-testid="stSelectbox"],
+        div[data-testid="stSelectbox"] > div,
+        div[data-testid="stSelectbox"] > div > div,
+        div[data-testid="stSelectbox"] select {
             background-color: #11151c !important;
             color: #f1f5f9 !important;
             border: 1px solid #2a3241 !important;
+            border-radius: 10px !important;
+        }
+
+        /* Force placeholder color */
+        input::placeholder, textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Focus ring */
+        input:focus, textarea:focus, select:focus {
+            border-color: #00ff9d !important;
+            box-shadow: 0 0 0 3px rgba(0,255,157,0.2) !important;
         }
     </style>
 """, unsafe_allow_html=True)
+    
 # Force dark mode on this page
 st.markdown("""
     <style>
