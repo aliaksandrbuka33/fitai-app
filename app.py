@@ -7,74 +7,87 @@ api_token = st.secrets["HF_TOKEN"]
 # Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-        /* Dark background for the whole app */
+        /* Root background */
         [data-testid="stAppViewContainer"] {
             background-color: #0a0c10 !important;
         }
         .main .block-container {
             background-color: #0a0c10 !important;
-            max-width: 900px !important;
+            max-width: 920px !important;
             margin: 0 auto !important;
-            padding: 1.5rem !important;
+            padding: 1.5rem 1rem !important;
         }
 
-        /* Sidebar dark */
+        /* Sidebar */
         [data-testid="stSidebar"] {
             background-color: #11151c !important;
+            border-right: 1px solid #1f2937 !important;
         }
 
-        /* Buttons: bright green, high contrast, subtle shadow */
+        /* Buttons - Apple-style depth */
         .stButton > button {
-            background-color: #00ff88 !important;
+            background: linear-gradient(180deg, #00ff9d 0%, #00cc7a 100%) !important;
             color: #000000 !important;
+            font-weight: 600 !important;
+            font-size: 17px !important;
             border-radius: 12px !important;
-            padding: 14px 28px !important;
-            font-size: 18px !important;
-            font-weight: 700 !important;
+            padding: 14px 24px !important;
             border: none !important;
-            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.25) !important;
-            transition: all 0.2s ease !important;
+            box-shadow: 
+                0 1px 3px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.25) !important;
+            transition: all 0.15s ease !important;
             width: 100% !important;
             margin: 12px 0 !important;
         }
         .stButton > button:hover {
-            background-color: #33ffaa !important;
-            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4) !important;
-            transform: translateY(-2px) !important;
+            background: linear-gradient(180deg, #33ffaa 0%, #00e68a 100%) !important;
+            box-shadow: 
+                0 4px 12px rgba(0,255,157,0.35),
+                inset 0 1px 0 rgba(255,255,255,0.35) !important;
+            transform: translateY(-1px) !important;
+        }
+        .stButton > button:active {
+            transform: translateY(0) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
         }
 
-        /* Inputs / selects / textareas - clean dark */
+        /* Inputs - glass-like dark */
         .stTextInput > div > div > input,
         .stNumberInput > div > div > input,
         .stTextArea > div > div > textarea,
         .stSelectbox > div > div > select {
-            background-color: #1a1f28 !important;
-            color: #ffffff !important;
-            border: 1px solid #444c5a !important;
+            background-color: #11151c !important;
+            color: #f1f5f9 !important;
+            border: 1px solid #2a3241 !important;
             border-radius: 10px !important;
-            padding: 14px !important;
+            padding: 14px 16px !important;
             font-size: 16px !important;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6) !important;
         }
 
-        /* Slider - green track */
-        .stSlider > div {
-            background-color: #00ff88 !important;
+        /* Focus state */
+        .stTextInput > div > div > input:focus,
+        .stNumberInput > div > div > input:focus {
+            border-color: #00ff9d !important;
+            box-shadow: 0 0 0 3px rgba(0,255,157,0.2) !important;
         }
 
-        /* Text & headers - clean contrast */
-        h1, h2, h3, h4 {
+        /* Headers */
+        h1, h2, h3 {
             color: #66ffcc !important;
             font-weight: 600 !important;
         }
-        p, span, div, label {
+
+        /* Regular text */
+        p, span, label, div {
             color: #d0d7e0 !important;
-            font-size: 16px !important;
         }
 
         /* Success / info boxes */
-        .stSuccess, .stInfo, .stAlert {
-            background-color: #0d2b1a !important;
-            border-color: #00ff88 !important;
+        .stAlert, .stSuccess, .stInfo {
+            background-color: #0d2b1f !important;
+            border-color: #00ff9d30 !important;
             color: #e0ffe0 !important;
             border-radius: 10px !important;
         }
