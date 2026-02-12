@@ -1,5 +1,14 @@
 import streamlit as st
-
+st.markdown("""
+    <style>
+        div[data-testid="stNumberInput"] > div > div > input,
+        div[data-testid="stTextInput"] > div > div > input {
+            background-color: #11151c !important;
+            color: #f1f5f9 !important;
+            border: 1px solid #2a3241 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 # Force dark mode on this page
 st.markdown("""
     <style>
