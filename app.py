@@ -7,75 +7,78 @@ api_token = st.secrets["HF_TOKEN"]
 # Global dark mode + fitness styling (applies to all pages)
 st.markdown("""
     <style>
-    /* Dark background + text */
-    [data-testid="stAppViewContainer"] {
-        background-color: #0e1117 !important;
-        color: #e0e0e0 !important;
-    }
-    .main .block-container {
-        background-color: #0e1117 !important;
-        color: #e0e0e0 !important;
-    }
-    [data-testid="stSidebar"] {
-        background-color: #161b22 !important;
-    }
+        /* Dark background for the whole app */
+        [data-testid="stAppViewContainer"] {
+            background-color: #0a0c10 !important;
+        }
+        .main .block-container {
+            background-color: #0a0c10 !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+            padding: 1.5rem !important;
+        }
 
-    /* Bigger, full-width buttons (great for mobile) */
-    .stButton > button {
-        background-color: #00cc66 !important;
-        color: black !important;
-        border-radius: 12px !important;
-        padding: 16px 32px !important;
-        font-weight: bold !important;
-        font-size: 18px !important;
-        border: none !important;
-        width: 100% !important;
-        margin-top: 12px !important;
-        margin-bottom: 12px !important;
-    }
-    .stButton > button:hover {
-        background-color: #00e673 !important;
-    }
+        /* Sidebar dark */
+        [data-testid="stSidebar"] {
+            background-color: #11151c !important;
+        }
 
-    /* Inputs look good on dark */
-    .stTextInput > div > div > input,
-    .stNumberInput > div > div > input,
-    .stTextArea > div > div > textarea,
-    .stSelectbox > div > div > select {
-        background-color: #1e1e1e !important;
-        color: white !important;
-        border: 1px solid #444 !important;
-        border-radius: 8px !important;
-        padding: 12px !important;
-    }
+        /* Buttons: bright green, high contrast, subtle shadow */
+        .stButton > button {
+            background-color: #00ff88 !important;
+            color: #000000 !important;
+            border-radius: 12px !important;
+            padding: 14px 28px !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            border: none !important;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.25) !important;
+            transition: all 0.2s ease !important;
+            width: 100% !important;
+            margin: 12px 0 !important;
+        }
+        .stButton > button:hover {
+            background-color: #33ffaa !important;
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4) !important;
+            transform: translateY(-2px) !important;
+        }
 
-    /* Sliders green */
-    .stSlider > div {
-        background-color: #00cc66 !important;
-    }
+        /* Inputs / selects / textareas - clean dark */
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input,
+        .stTextArea > div > div > textarea,
+        .stSelectbox > div > div > select {
+            background-color: #1a1f28 !important;
+            color: #ffffff !important;
+            border: 1px solid #444c5a !important;
+            border-radius: 10px !important;
+            padding: 14px !important;
+            font-size: 16px !important;
+        }
 
-    /* Headers green, text light */
-    h1, h2, h3, h4, h5, h6 {
-        color: #00cc66 !important;
-    }
-    p, span, div, label {
-        color: #e0e0e0 !important;
-    }
+        /* Slider - green track */
+        .stSlider > div {
+            background-color: #00ff88 !important;
+        }
 
-    /* Alerts/info boxes */
-    .stAlert {
-        background-color: #1e3a2d !important;
-        border-color: #00cc66 !important;
-        color: #e0e0e0 !important;
-    }
+        /* Text & headers - clean contrast */
+        h1, h2, h3, h4 {
+            color: #66ffcc !important;
+            font-weight: 600 !important;
+        }
+        p, span, div, label {
+            color: #d0d7e0 !important;
+            font-size: 16px !important;
+        }
 
-    /* Better spacing */
-    .block-container {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
-        max-width: 800px !important;  /* Centers content on large screens */
-    }
-</style>
+        /* Success / info boxes */
+        .stSuccess, .stInfo, .stAlert {
+            background-color: #0d2b1a !important;
+            border-color: #00ff88 !important;
+            color: #e0ffe0 !important;
+            border-radius: 10px !important;
+        }
+    </style>
 """, unsafe_allow_html=True)
 
 # Page config (wide layout for better mobile)
